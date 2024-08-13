@@ -65,6 +65,12 @@
     <None Include="FS\FragmentShader.frag">
       <Filter>Pliki źródłowe\FS</Filter>
     </None>
+    <None Include="VS\Light.vs">
+      <Filter>Pliki źródłowe\VS</Filter>
+    </None>
+    <None Include="FS\LightFrag.frag">
+      <Filter>Pliki źródłowe\FS</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <Image Include="container.jpg">

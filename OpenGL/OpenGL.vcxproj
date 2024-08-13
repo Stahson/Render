@@ -34,7 +34,9 @@
     <None Include="assimp-vc143-mtd.dll" />
     <None Include="FS\FragmentModel.frag" />
     <None Include="FS\FragmentShader.frag" />
+    <None Include="FS\LightFrag.frag" />
     <None Include="SU-27CGLOWPOLY.mtl" />
+    <None Include="VS\Light.vs" />
     <None Include="VS\ModelShader.vs" />
     <None Include="VS\VertexShader.vs" />
   </ItemGroup>
