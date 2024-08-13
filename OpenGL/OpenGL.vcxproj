@@ -35,11 +35,13 @@
     <None Include="FragmentModel.frag" />
     <None Include="FragmentShader.frag" />
     <None Include="ModelShader.vs" />
+    <None Include="SU-27CGLOWPOLY.mtl" />
     <None Include="VertexShader.vs" />
   </ItemGroup>
   <ItemGroup>
     <Image Include="container.jpg" />
     <Image Include="floyd.jpg" />
+    <Image Include="moro.jpg" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>17.0</VCProjectVersion>

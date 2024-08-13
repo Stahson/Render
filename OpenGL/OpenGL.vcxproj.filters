@@ -56,12 +56,18 @@
     <None Include="FragmentModel.frag">
       <Filter>Pliki źródłowe</Filter>
     </None>
+    <None Include="SU-27CGLOWPOLY.mtl">
+      <Filter>Pliki źródłowe</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <Image Include="container.jpg">
       <Filter>Pliki źródłowe</Filter>
     </Image>
     <Image Include="floyd.jpg">
+      <Filter>Pliki źródłowe</Filter>
+    </Image>
+    <Image Include="moro.jpg">
       <Filter>Pliki źródłowe</Filter>
     </Image>
   </ItemGroup>
