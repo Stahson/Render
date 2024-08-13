@@ -80,7 +80,11 @@ int main()
     glfwSetScrollCallback(window, scroll_callback);
     // build and compile our shader program
     // ------------------------------------
-    Shader ourShader("VertexShader.vs", "FragmentShader.frag"); // you can name your shader files however you like
+    Shader ourShader("VS/VertexShader.vs", "FS/FragmentShader.frag");
+    //Shader lightCubeShader("VS/Light.vs", "FS/LightFrag.frag");
+    
+    
+    // you can name your shader files however you like
 
     
     // set up vertex data (and buffer(s)) and configure vertex attributes
@@ -149,7 +153,9 @@ int main()
     //    glBufferData(GL_ARRAY_BUFFER, sizeof(vertices), vertices, GL_STATIC_DRAW);
     
 
+   
     
+
 
     unsigned int VBO, VAO;
     glGenVertexArrays(1, &VAO);
@@ -176,7 +182,20 @@ int main()
     glEnableVertexAttribArray(1);
 
 
+    // LIGHT
+    unsigned int lightCubeVAO;
+    glGenVertexArrays(1, &lightCubeVAO);
+    glBindVertexArray(lightCubeVAO);
+
+    glBindBuffer(GL_ARRAY_BUFFER, VBO);
+    // note that we update the lamp's position attribute's stride to reflect the updated buffer data
+    glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 6 * sizeof(float), (void*)0);
+    glEnableVertexAttribArray(0);
   
+
+
+
+
 
     unsigned int texture1;
     glGenTextures(1, &texture1);
@@ -313,7 +332,7 @@ int main()
      glm::vec3 cameraUp = glm::cross(cameraDirection, cameraRight);
      */
      stbi_set_flip_vertically_on_load(true);
-     Shader ourShader1("ModelShader.vs", "FragmentModel.frag");
+     Shader ourShader1("VS/ModelShader.vs", "FS/FragmentModel.frag");
      ourShader1.setInt("texture1", 0);
      Model ourModel("C:/Users/stasi/source/repos/OpenGL/OpenGL/SU-27CGLOWPOLY.obj");
 

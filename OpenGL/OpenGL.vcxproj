@@ -32,11 +32,11 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="assimp-vc143-mtd.dll" />
-    <None Include="FragmentModel.frag" />
-    <None Include="FragmentShader.frag" />
-    <None Include="ModelShader.vs" />
+    <None Include="FS\FragmentModel.frag" />
+    <None Include="FS\FragmentShader.frag" />
     <None Include="SU-27CGLOWPOLY.mtl" />
-    <None Include="VertexShader.vs" />
+    <None Include="VS\ModelShader.vs" />
+    <None Include="VS\VertexShader.vs" />
   </ItemGroup>
   <ItemGroup>
     <Image Include="container.jpg" />

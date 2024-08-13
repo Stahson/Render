@@ -13,6 +13,12 @@
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
+    <Filter Include="Pliki źródłowe\VS">
+      <UniqueIdentifier>{2a94c12f-91b5-4539-940e-30204e9b62f8}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Pliki źródłowe\FS">
+      <UniqueIdentifier>{606cc471-dae1-4d84-a707-89cc85ee23ad}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="glad.c">
@@ -43,21 +49,21 @@
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <None Include="VertexShader.vs">
-      <Filter>Pliki źródłowe</Filter>
-    </None>
-    <None Include="FragmentShader.frag">
-      <Filter>Pliki źródłowe</Filter>
-    </None>
     <None Include="assimp-vc143-mtd.dll" />
-    <None Include="ModelShader.vs">
-      <Filter>Pliki źródłowe</Filter>
-    </None>
-    <None Include="FragmentModel.frag">
-      <Filter>Pliki źródłowe</Filter>
-    </None>
     <None Include="SU-27CGLOWPOLY.mtl">
       <Filter>Pliki źródłowe</Filter>
+    </None>
+    <None Include="VS\ModelShader.vs">
+      <Filter>Pliki źródłowe\VS</Filter>
+    </None>
+    <None Include="VS\VertexShader.vs">
+      <Filter>Pliki źródłowe\VS</Filter>
+    </None>
+    <None Include="FS\FragmentModel.frag">
+      <Filter>Pliki źródłowe\FS</Filter>
+    </None>
+    <None Include="FS\FragmentShader.frag">
+      <Filter>Pliki źródłowe\FS</Filter>
     </None>
   </ItemGroup>
   <ItemGroup>
