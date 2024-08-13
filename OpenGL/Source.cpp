@@ -466,10 +466,13 @@ int main()
         glBindTexture(GL_TEXTURE_2D, texture3);
  
         ourShader1.use();
+        ourShader1.setVec3("lightColor", 1.0f, 1.0f, 1.0f);
+        ourShader1.setVec3("lightPos", lightPos.x, lightPos.y, lightPos.z);
+        ourShader1.setVec3("viewPos", camera.Position.x, camera.Position.y, camera.Position.z);
         // render the loaded model
         model = glm::mat4(1.0f);
         model = glm::translate(model, glm::vec3(0.0f, 0.0f, 0.0f)); // translate it down so it's at the center of the scene
-        model = glm::scale(model, glm::vec3(0.1f, 0.1f, 0.1f));	// it's a bit too big for our scene, so scale it down
+        model = glm::scale(model, glm::vec3(0.5f, 0.5f, 0.5f));	// it's a bit too big for our scene, so scale it down
         //ourShader.setMat4("model", model);
         projection = glm::perspective(glm::radians(camera.Zoom), (float)SCR_WIDTH / (float)SCR_HEIGHT, 0.1f, 100.0f);
         glm::mat4 viewCam = camera.GetViewMatrix();
