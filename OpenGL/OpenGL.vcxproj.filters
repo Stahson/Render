@@ -85,10 +85,10 @@
     <Image Include="container.jpg">
       <Filter>Pliki źródłowe</Filter>
     </Image>
-    <Image Include="floyd.jpg">
+    <Image Include="moro.jpg">
       <Filter>Pliki źródłowe</Filter>
     </Image>
-    <Image Include="moro.jpg">
+    <Image Include="face.jpg">
       <Filter>Pliki źródłowe</Filter>
     </Image>
   </ItemGroup>

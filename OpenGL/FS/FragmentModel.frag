@@ -13,9 +13,14 @@ uniform vec3 objectColor;
 uniform vec3 cameraPosition; // Pozycja kamery
 uniform float fogDensity;    // Gêstoœæ mg³y
 uniform vec3 fogColor;
+uniform vec3 direction;
+uniform bool reflector;
+uniform float cutOff;
 
 void main()
 {
+    if(!reflector)
+    {
     // Pobranie koloru tekstury
     vec3 texColor = texture(texture1, TexCoords).rgb;
     
@@ -47,4 +52,12 @@ void main()
     // Ostateczny kolor fragmentu
     vec4 color = vec4(lighting, 1.0);
     FragColor = mix( color,vec4(fogColor, 1.0), fogFactor);
+    }
+    else
+    {
+     vec3 texColor = texture(texture1, TexCoords).rgb;
+     float ambientStrength = 0.1;
+    vec3 ambient = ambientStrength * lightColor;
+    FragColor = vec4(ambient *  texColor, 1.0);
+    }
 }
