@@ -47,6 +47,9 @@
     <ClInclude Include="Material.h">
       <Filter>Pliki nagłówkowe</Filter>
     </ClInclude>
+    <ClInclude Include="Bezierr.h">
+      <Filter>Pliki nagłówkowe</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="assimp-vc143-mtd.dll" />
@@ -70,6 +73,12 @@
     </None>
     <None Include="FS\LightFrag.frag">
       <Filter>Pliki źródłowe\FS</Filter>
+    </None>
+    <None Include="FS\Bezier.frag">
+      <Filter>Pliki źródłowe\FS</Filter>
+    </None>
+    <None Include="VS\BezierShader.vs">
+      <Filter>Pliki źródłowe\VS</Filter>
     </None>
   </ItemGroup>
   <ItemGroup>

@@ -23,6 +23,7 @@
     <ClCompile Include="Source.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Bezierr.h" />
     <ClInclude Include="Camera.h" />
     <ClInclude Include="Material.h" />
     <ClInclude Include="Mesh.h" />
@@ -32,10 +33,12 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="assimp-vc143-mtd.dll" />
+    <None Include="FS\Bezier.frag" />
     <None Include="FS\FragmentModel.frag" />
     <None Include="FS\FragmentShader.frag" />
     <None Include="FS\LightFrag.frag" />
     <None Include="SU-27CGLOWPOLY.mtl" />
+    <None Include="VS\BezierShader.vs" />
     <None Include="VS\Light.vs" />
     <None Include="VS\ModelShader.vs" />
     <None Include="VS\VertexShader.vs" />
