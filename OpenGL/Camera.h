@@ -31,6 +31,9 @@ public:
     glm::vec3 Up;
     glm::vec3 Right;
     glm::vec3 WorldUp;
+    bool jet;
+    glm::vec3 Jetposition;
+    float yaw;
     // euler Angles
     float Yaw;
     float Pitch;
@@ -57,7 +60,11 @@ public:
         Pitch = pitch;
         updateCameraVectors();
     }
-
+    void JetPass(glm::vec3 jetpos,float Yaw)
+    {
+        Jetposition = jetpos;
+        yaw = Yaw;
+    }
     // returns the view matrix calculated using Euler Angles and the LookAt Matrix
     glm::mat4 GetViewMatrix()
     {
@@ -99,7 +106,10 @@ public:
         // update Front, Right and Up Vectors using the updated Euler angles
         updateCameraVectors();
     }
-
+    void Process()
+    {
+        updateCameraVectors();
+    }
     // processes input received from a mouse scroll-wheel event. Only requires input on the vertical wheel-axis
     void ProcessMouseScroll(float yoffset)
     {
@@ -114,6 +124,11 @@ private:
     // calculates the front vector from the Camera's (updated) Euler Angles
     void updateCameraVectors()
     {
+        if (jet)
+        {
+            Position =  Jetposition - Front * 20.0f + glm::vec3(0.0f, 5.0f, 0.0f);
+            Yaw -=2.58f;
+        }
         // calculate the new Front vector
         glm::vec3 front;
         front.x = cos(glm::radians(Yaw)) * cos(glm::radians(Pitch));

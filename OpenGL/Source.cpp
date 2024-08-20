@@ -23,6 +23,11 @@ glm::vec3** CreateBezier();
 void FullFillPoints(float** data, BezierPath Bezier);
 void CreateTriangles();
 glm::mat4 createModelMatrix(const glm::vec3& position, const glm::vec3& scale, const glm::vec3& normal);
+bool jclick = false;
+
+float fogDensity = 0.0f; // Gêstoœæ mg³y
+glm::vec3 fogColor(0.5f, 0.5f, 0.5f);
+
 struct Triangles {
     glm::vec3 vertices[3];
     glm::vec3 normals[3];
@@ -463,8 +468,6 @@ int main()
      Model ourModel("C:/Users/stasi/source/repos/OpenGL/OpenGL/SU-27CGLOWPOLY.obj");
      
      
-
-     
      
     // -----------
     while (!glfwWindowShouldClose(window))
@@ -475,9 +478,19 @@ int main()
         deltaTime = currentFrame - lastFrame;
         lastFrame = currentFrame;
         processInput(window);
-        const float radius = 50.0f;
+        const float radius = 30.0f;
         float camX = sin(glfwGetTime()) * radius;
         float camZ = cos(glfwGetTime()) * radius;
+        float angle = glfwGetTime();
+        if (jclick)
+        {
+            camera.jet = true;
+            camera.JetPass(glm::vec3(0.3f*camX,0.0f,0.3f*camZ),angle);
+            //camera.Yaw = angle;
+            camera.Process();
+            
+        }
+       
         // render
         // ------
         glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
@@ -504,6 +517,9 @@ int main()
         ourShader.setVec3("lightColor", 1.0f, 1.0f, 1.0f);
         ourShader.setVec3("lightPos", lightPos.x, lightPos.y, lightPos.z);
         ourShader.setVec3("viewPos", camera.Position.x, camera.Position.y, camera.Position.z);
+        ourShader.setFloat("fogDensity", fogDensity);
+        ourShader.setVec3("fogColor", fogColor.x, fogColor.y, fogColor.z);
+        ourShader.setVec3("cameraPosition", camera.Position.x, camera.Position.y, camera.Position.z);
 
         
 
@@ -566,6 +582,9 @@ int main()
         }*/
 
         lightCubeShader.use();
+        lightCubeShader.setFloat("fogDensity", fogDensity);
+        lightCubeShader.setVec3("fogColor", fogColor.x,fogColor.y,fogColor.z);
+        lightCubeShader.setVec3("cameraPosition", camera.Position.x, camera.Position.y, camera.Position.z);
         lightCubeShader.setMat4("projection", projection);
         lightCubeShader.setMat4("view", view);
         model = glm::mat4(1.0f);
@@ -583,6 +602,9 @@ int main()
         ourShader1.setVec3("lightColor", 1.0f, 1.0f, 1.0f);
         ourShader1.setVec3("lightPos", lightPos.x, lightPos.y, lightPos.z);
         ourShader1.setVec3("viewPos", camera.Position.x, camera.Position.y, camera.Position.z);
+        ourShader1.setFloat("fogDensity", fogDensity);
+        ourShader1.setVec3("fogColor", fogColor.x, fogColor.y, fogColor.z);
+        ourShader1.setVec3("cameraPosition", camera.Position.x, camera.Position.y, camera.Position.z);
         // render the loaded model
         model = glm::mat4(1.0f);
         model = glm::translate(model, glm::vec3(0.0f, 0.0f, 0.0f)); // translate it down so it's at the center of the scene
@@ -597,7 +619,7 @@ int main()
        
 
         float rotationSpeed = 0.5;
-        float angle = glfwGetTime();
+       
         glm::mat4 rotation = glm::rotate(glm::mat4(1.0f), angle, glm::vec3(0.0f, 1.0f, 0.0f));
 
         model = glm::translate(model, glm::vec3(camX, 0.0f, camZ));
@@ -635,18 +657,39 @@ int main()
 void processInput(GLFWwindow* window)
 {
     
+    if (!jclick) {
+        if (glfwGetKey(window, GLFW_KEY_M) == GLFW_PRESS)
+        {
+            fogDensity = 0.01f;
+        }
 
-    if (glfwGetKey(window, GLFW_KEY_ESCAPE) == GLFW_PRESS)
-        glfwSetWindowShouldClose(window, true);
+        if (glfwGetKey(window, GLFW_KEY_ESCAPE) == GLFW_PRESS)
+            glfwSetWindowShouldClose(window, true);
 
-    if (glfwGetKey(window, GLFW_KEY_W) == GLFW_PRESS)
-        camera.ProcessKeyboard(FORWARD, deltaTime);
-    if (glfwGetKey(window, GLFW_KEY_S) == GLFW_PRESS)
-        camera.ProcessKeyboard(BACKWARD, deltaTime);
-    if (glfwGetKey(window, GLFW_KEY_A) == GLFW_PRESS)
-        camera.ProcessKeyboard(LEFT, deltaTime);
-    if (glfwGetKey(window, GLFW_KEY_D) == GLFW_PRESS)
-        camera.ProcessKeyboard(RIGHT, deltaTime);
+
+        if (glfwGetKey(window, GLFW_KEY_W) == GLFW_PRESS)
+            camera.ProcessKeyboard(FORWARD, deltaTime);
+        if (glfwGetKey(window, GLFW_KEY_S) == GLFW_PRESS)
+            camera.ProcessKeyboard(BACKWARD, deltaTime);
+        if (glfwGetKey(window, GLFW_KEY_A) == GLFW_PRESS)
+            camera.ProcessKeyboard(LEFT, deltaTime);
+        if (glfwGetKey(window, GLFW_KEY_D) == GLFW_PRESS)
+            camera.ProcessKeyboard(RIGHT, deltaTime);
+        if (glfwGetKey(window, GLFW_KEY_J) == GLFW_PRESS)
+            jclick = true;
+    }
+    else
+    {
+        if (glfwGetKey(window, GLFW_KEY_K) == GLFW_PRESS)
+        {
+            jclick = false;
+            camera.jet = false;
+        }
+        if (glfwGetKey(window, GLFW_KEY_M) == GLFW_PRESS)
+        {
+            fogDensity = 0.01f;
+        }
+    }
 }
 
 // glfw: whenever the window size changed (by OS or user resize) this callback function executes
@@ -862,8 +905,8 @@ void TrianglesMake(int n, BezierPath Bezier, list<Triangle>& triangles)
             //triangles[2 * j * 3*n + 2 * i].modelMatrix = createModelMatrix(p0, glm::vec3(1.0f, 1.0f, 1.0f), glm::normalize(glm::cross(uVec1, vVec1)));
 
             Triangle tr2;
-            tr2.vertices[0] = p3;
-            tr2.vertices[1] = p1;
+            tr2.vertices[0] = p1;
+            tr2.vertices[1] = p3;
             tr2.vertices[2] = p2;
 
             // Drugi trójk¹t (p1, p3, p2)
@@ -978,8 +1021,16 @@ void drawTriangle(Triangle triangle, Shader shader, glm::mat4 view, glm::mat4 pr
     shader.setVec3("lightColor", 1.0f, 1.0f, 1.0f);
     shader.setVec3("lightPos", lightPos.x, lightPos.y, lightPos.z);
     shader.setVec3("viewPos", camera.Position.x, camera.Position.y, camera.Position.z);
+    shader.setFloat("fogDensity", fogDensity);
+    shader.setVec3("fogColor", fogColor.x, fogColor.y, fogColor.z);
+    shader.setVec3("cameraPosition", camera.Position.x, camera.Position.y, camera.Position.z);
+    glm::mat4x4 model = glm::mat4x4(1.0f);
+    float angle = glm::radians(270.0f);  // Przeliczenie stopni na radiany
+    glm::vec3 axisX(1.0f, 0.0f, 0.0f);  // Oœ X
 
-    shader.setMat4("model", glm::mat4x4(1.0f));
+    model = glm::rotate(model, angle, axisX);
+    model = glm::scale(model, glm::vec3(5.0f,5.0f,5.0f));
+    shader.setMat4("model", model);
     shader.setMat4("view", view);
     shader.setMat4("projection", projection);
 

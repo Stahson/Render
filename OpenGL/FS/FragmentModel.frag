@@ -10,12 +10,20 @@ uniform vec3 lightPos;
 uniform vec3 viewPos;        
 uniform vec3 lightColor;     
 uniform vec3 objectColor;    
+uniform vec3 cameraPosition; // Pozycja kamery
+uniform float fogDensity;    // Gêstoœæ mg³y
+uniform vec3 fogColor;
 
 void main()
 {
     // Pobranie koloru tekstury
     vec3 texColor = texture(texture1, TexCoords).rgb;
     
+    float distance = length(cameraPosition - FragPos);
+    
+    // Oblicz wspó³czynnik mg³y (tutaj eksponencjalny)
+    float fogFactor = 1.0 - exp(-fogDensity * distance );
+
     // Ambient Lighting
     float ambientStrength = 0.1;
     vec3 ambient = ambientStrength * lightColor;
@@ -37,5 +45,6 @@ void main()
     vec3 lighting = (ambient + diffuse + specular) * texColor;
 
     // Ostateczny kolor fragmentu
-    FragColor = vec4(lighting, 1.0);
+    vec4 color = vec4(lighting, 1.0);
+    FragColor = mix( color,vec4(fogColor, 1.0), fogFactor);
 }
