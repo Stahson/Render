@@ -25,6 +25,7 @@ void CreateTriangles();
 glm::mat4 createModelMatrix(const glm::vec3& position, const glm::vec3& scale, const glm::vec3& normal);
 bool jclick = false;
 bool reflector = false;
+bool Night = true;
 
 float fogDensity = 0.0f; // Gêstoœæ mg³y
 glm::vec3 fogColor(0.5f, 0.5f, 0.5f);
@@ -435,7 +436,14 @@ int main()
        
         // render
         // ------
-        glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
+        if (Night) 
+        {
+            glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
+        }
+        else
+        {
+            glClearColor(0.0f, 0.5f, 1.0f, 1.0f);
+        }
         glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
         // render the triangle
         //ourShader.use();
@@ -613,6 +621,10 @@ void processInput(GLFWwindow* window)
 {
     
     if (!jclick) {
+        if (glfwGetKey(window, GLFW_KEY_N) == GLFW_PRESS)
+        {
+            Night = true;
+        }
         if (glfwGetKey(window, GLFW_KEY_M) == GLFW_PRESS)
         {
             fogDensity = 0.01f;
@@ -624,6 +636,10 @@ void processInput(GLFWwindow* window)
         if (glfwGetKey(window, GLFW_KEY_L) == GLFW_PRESS)
         {
             reflector = false;
+        }
+        if (glfwGetKey(window, GLFW_KEY_B) == GLFW_PRESS)
+        {
+            Night = false;
         }
 
         if (glfwGetKey(window, GLFW_KEY_ESCAPE) == GLFW_PRESS)
@@ -659,6 +675,14 @@ void processInput(GLFWwindow* window)
         if (glfwGetKey(window, GLFW_KEY_L) == GLFW_PRESS)
         {
             reflector = false;
+        }
+        if (glfwGetKey(window, GLFW_KEY_N) == GLFW_PRESS)
+        {
+            Night = true;
+        }
+        if (glfwGetKey(window, GLFW_KEY_B) == GLFW_PRESS)
+        {
+            Night = false;
         }
     }
 }

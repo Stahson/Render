@@ -127,7 +127,7 @@ private:
         if (jet)
         {
             Position =  Jetposition - Front * 20.0f + glm::vec3(0.0f, 5.0f, 0.0f);
-            Yaw -=2.58f;
+            Yaw -=3.28f;
         }
         // calculate the new Front vector
         glm::vec3 front;
